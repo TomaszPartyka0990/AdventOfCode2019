@@ -1,30 +1,32 @@
-package dayseven;
+package dayfive;
 
-import static dayseven.Main.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Scanner;
 
-public class Amplifier {
-    private String phaseSetting;
-    private String input;
-    private String[] table;
-    private boolean firstInput;
-    private int actualPosition;
-
-    public Amplifier(String[] table, String phaseSetting){
-        this.table = table.clone();
-        this.phaseSetting = phaseSetting;
-        this.firstInput = true;
-        this.actualPosition = 0;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Path filePath = Paths.get("src\\main\\resources\\DayFiveInput.txt");
+        List<String> line = Files.readAllLines(filePath);
+        String dataInString = "";
+        for(String oneLine:line){
+            dataInString = oneLine;
+        }
+        String[] dataSplited = dataInString.split(",");
+        intcode(dataSplited);
     }
 
-    public void setInput(String input) {
-        this.input = input;
-    }
-
-    public void intcode (){
+    private static void intcode (String[] table){
+        int actualPosition = 0;
         int firstNumber = 0;
         int secondNumber = 0;
         int resultPosition = 0;
         String result;
+        Scanner scanner = new Scanner(System.in);
+        String input;
         String opcode = "";
         String parameterOneMode="";
         String parameterTwoMode="";
@@ -87,12 +89,9 @@ public class Amplifier {
             }
             if ("3".equals(opcode)){
                 resultPosition = Integer.parseInt(table[actualPosition+1]);
-                if (firstInput) {
-                    result = phaseSetting;
-                    firstInput = false;
-                } else {
-                    result = input;
-                }
+                System.out.println("Insert the instruction");
+                input = scanner.nextLine();
+                result = input;
                 table[resultPosition] = result;
                 actualPosition += 2;
             }
@@ -102,9 +101,8 @@ public class Amplifier {
                 } else {
                     result = table[actualPosition + 1];
                 }
-                output = result;
+                System.out.println(result);
                 actualPosition += 2;
-                return;
             }
             if ("5".equals(opcode)){
                 if (firstNumber!=0){
@@ -139,6 +137,5 @@ public class Amplifier {
                 actualPosition += 4;
             }
         } while (!"99".equals(opcode));
-        isFinished = true;
     }
 }
