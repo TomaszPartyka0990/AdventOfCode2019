@@ -10,7 +10,7 @@ public class Main {
     public static String output;
     public static boolean isFinished;
     public static void main(String[] args) throws IOException, InterruptedException {
-        Path path = Paths.get("C:\\Users\\Tomasz Partyka\\IdeaProjects\\AdventOfCode\\src\\main\\resources\\DaySevenInput.txt");
+        Path path = Paths.get("src\\main\\resources\\DaySevenInput.txt");
         String line = Files.lines(path).collect(Collectors.joining());
         String[] dataSplited = line.split(",");
         String tmp = "0";

@@ -28,7 +28,6 @@ public class Amplifier {
         String opcode = "";
         String parameterOneMode="";
         String parameterTwoMode="";
-        String parameterThreeMode = "0";
         do {
             if (table[actualPosition].length() > 1){
                 switch (table[actualPosition].length()){
@@ -55,16 +54,15 @@ public class Amplifier {
                         opcode = table[actualPosition].charAt(4)+"";
                         parameterOneMode = table[actualPosition].charAt(2)+"";
                         parameterTwoMode = table[actualPosition].charAt(1)+"";
-                        parameterThreeMode = table[actualPosition].charAt(0)+"";
                         break;
                 }
             } else {
                 opcode = table[actualPosition];
                 parameterOneMode = "0";
                 parameterTwoMode = "0";
-                parameterThreeMode = "0";
             }
-            if ("1".equals(opcode)){
+            if ("1".equals(opcode)||"2".equals(opcode)||"5".equals(opcode)||"6".equals(opcode)
+                    ||"7".equals(opcode)||"8".equals(opcode)) {
                 if ("0".equals(parameterOneMode)){
                     firstNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 1])]);
                 } else {
@@ -76,22 +74,14 @@ public class Amplifier {
                     secondNumber = Integer.parseInt(table[actualPosition + 2]);
                 }
                 resultPosition = Integer.parseInt(table[actualPosition+3]);
+            }
+            if ("1".equals(opcode)){
+
                 result = firstNumber + secondNumber + "";
                 table[resultPosition] = result;
                 actualPosition += 4;
             }
             if ("2".equals(opcode)){
-                if ("0".equals(parameterOneMode)){
-                    firstNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 1])]);
-                } else {
-                    firstNumber = Integer.parseInt(table[actualPosition + 1]);
-                }
-                if ("0".equals(parameterTwoMode)) {
-                    secondNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 2])]);
-                } else {
-                    secondNumber = Integer.parseInt(table[actualPosition + 2]);
-                }
-                resultPosition = Integer.parseInt(table[actualPosition+3]);
                 result = firstNumber * secondNumber + "";
                 table[resultPosition] = result;
                 actualPosition += 4;
@@ -118,16 +108,6 @@ public class Amplifier {
                 return;
             }
             if ("5".equals(opcode)){
-                if ("0".equals(parameterOneMode)){
-                    firstNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 1])]);
-                } else {
-                    firstNumber = Integer.parseInt(table[actualPosition + 1]);
-                }
-                if ("0".equals(parameterTwoMode)) {
-                    secondNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 2])]);
-                } else {
-                    secondNumber = Integer.parseInt(table[actualPosition + 2]);
-                }
                 if (firstNumber!=0){
                     actualPosition = secondNumber;
                 } else {
@@ -135,16 +115,6 @@ public class Amplifier {
                 }
             }
             if ("6".equals(opcode)){
-                if ("0".equals(parameterOneMode)){
-                    firstNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 1])]);
-                } else {
-                    firstNumber = Integer.parseInt(table[actualPosition + 1]);
-                }
-                if ("0".equals(parameterTwoMode)) {
-                    secondNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 2])]);
-                } else {
-                    secondNumber = Integer.parseInt(table[actualPosition + 2]);
-                }
                 if (firstNumber==0){
                     actualPosition = secondNumber;
                 } else {
@@ -152,17 +122,6 @@ public class Amplifier {
                 }
             }
             if ("7".equals(opcode)){
-                if ("0".equals(parameterOneMode)){
-                    firstNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 1])]);
-                } else {
-                    firstNumber = Integer.parseInt(table[actualPosition + 1]);
-                }
-                if ("0".equals(parameterTwoMode)) {
-                    secondNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 2])]);
-                } else {
-                    secondNumber = Integer.parseInt(table[actualPosition + 2]);
-                }
-                resultPosition = Integer.parseInt(table[actualPosition+3]);
                 if (firstNumber<secondNumber){
                     result = "1";
                 } else {
@@ -172,17 +131,6 @@ public class Amplifier {
                 actualPosition += 4;
             }
             if ("8".equals(opcode)) {
-                if ("0".equals(parameterOneMode)) {
-                    firstNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 1])]);
-                } else {
-                    firstNumber = Integer.parseInt(table[actualPosition + 1]);
-                }
-                if ("0".equals(parameterTwoMode)) {
-                    secondNumber = Integer.parseInt(table[Integer.parseInt(table[actualPosition + 2])]);
-                } else {
-                    secondNumber = Integer.parseInt(table[actualPosition + 2]);
-                }
-                resultPosition = Integer.parseInt(table[actualPosition + 3]);
                 if (firstNumber == secondNumber) {
                     result = "1";
                 } else {
@@ -193,6 +141,5 @@ public class Amplifier {
             }
         } while (!"99".equals(opcode));
         isFinished = true;
-        return;
     }
 }
