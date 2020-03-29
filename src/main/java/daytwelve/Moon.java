@@ -7,7 +7,6 @@ public class Moon {
     private int xVelocity;
     private int yVelocity;
     private int zVelocity;
-    private String name;
     private int potEnergy;
     private int kinenergy;
     private int totalEnergy;
@@ -19,14 +18,9 @@ public class Moon {
         xVelocity = 0;
         yVelocity = 0;
         zVelocity = 0;
-        name = "";
         potEnergy = 0;
         kinenergy = 0;
         totalEnergy = 0;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getxPosition() {

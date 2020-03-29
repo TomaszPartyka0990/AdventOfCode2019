@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoonsService {
-    List<Moon> moons;
-    List<Moon> initialState;
+    private List<Moon> moons;
+    private List<Moon> initialState;
 
     public MoonsService(List<Moon> moons) {
         this.moons = moons;

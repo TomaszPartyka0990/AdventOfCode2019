@@ -19,10 +19,6 @@ public class Main {
             int z = Integer.parseInt(coordinates[2].substring(2));
             moons.add(new Moon(x, y, z));
         }
-        moons.get(0).setName("Io");
-        moons.get(1).setName("Europa");
-        moons.get(2).setName("Ganymede");
-        moons.get(3).setName("Callisto");
         MoonsService moonsService = new MoonsService(moons);
         System.out.println("At start:");
         moonsService.printMoons();
