@@ -26,6 +26,7 @@ public class Main {
         MoonsService moonsService = new MoonsService(moons);
         System.out.println("At start:");
         moonsService.printMoons();
+        System.out.println();
         for (int i=0; i<1000; i++) {
             moonsService.applyGravity();
             moonsService.applyVelocity();
@@ -33,5 +34,46 @@ public class Main {
         System.out.println("After 1000 step:");
         moonsService.printMoons();
         System.out.println("ENERGY: " + moonsService.calculateEnergy());
+        moonsService.bringBackInitialState();
+        System.out.println();
+        long xSteps = 0;
+        do{
+            moonsService.applyXGravity();
+            moonsService.applyXVelocity();
+            xSteps++;
+        } while (!moonsService.checkIfXMatchesInitialState());
+        moonsService.bringBackInitialState();
+        long ySteps = 0;
+        do{
+            moonsService.applyYGravity();
+            moonsService.applyYVelocity();
+            ySteps++;
+        } while (!moonsService.checkIfYMatchesInitialState());
+        moonsService.bringBackInitialState();
+        long zSteps = 0;
+        do{
+            moonsService.applyZGravity();
+            moonsService.applyZVelocity();
+            zSteps++;
+        } while (!moonsService.checkIfZMatchesInitialState());
+        System.out.println("xSteps: " + xSteps);
+        System.out.println("ySteps: " + ySteps);
+        System.out.println("zSteps: " + zSteps);
+        long steps = nww(nww(xSteps, ySteps),zSteps);
+        System.out.println("Steps to go back to initial state: " + steps);
+    }
+
+    public static long nwd(long x, long y) {
+        while (x != y) {
+            if (x > y)
+                x -= y;
+            else
+                y -= x;
+        }
+        return x;
+    }
+
+    public static long nww(long x, long y){
+        return (x*y)/nwd(x, y);
     }
 }

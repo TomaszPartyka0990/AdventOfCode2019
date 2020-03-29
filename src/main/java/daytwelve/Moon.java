@@ -1,7 +1,5 @@
 package daytwelve;
 
-import java.util.Objects;
-
 public class Moon {
     private int xPosition;
     private int yPosition;
@@ -96,12 +94,23 @@ public class Moon {
 
         Moon moon = (Moon) o;
 
-        return Objects.equals(name, moon.name);
+        if (xPosition != moon.xPosition) return false;
+        if (yPosition != moon.yPosition) return false;
+        if (zPosition != moon.zPosition) return false;
+        if (xVelocity != moon.xVelocity) return false;
+        if (yVelocity != moon.yVelocity) return false;
+        return zVelocity == moon.zVelocity;
     }
 
     @Override
     public int hashCode() {
-        return name != null ? name.hashCode() : 0;
+        int result = xPosition;
+        result = 31 * result + yPosition;
+        result = 31 * result + zPosition;
+        result = 31 * result + xVelocity;
+        result = 31 * result + yVelocity;
+        result = 31 * result + zVelocity;
+        return result;
     }
 
     public void calculateEnergies(){
