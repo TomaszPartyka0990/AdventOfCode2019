@@ -14,6 +14,7 @@ public class Main {
     static String intcodeOutput;
     static boolean intcodeIsFinished;
     static int actualPosition;
+    static int relativeBase;
 
     public static void main(String[] args) throws IOException {
         Path path = Paths.get("src\\main\\resources\\DayElevenInput.txt");
@@ -24,6 +25,7 @@ public class Main {
         PaintingRobot robot = new PaintingRobot();
         intcodeIsFinished = false;
         actualPosition = 0;
+        relativeBase = 0;
         while(!intcodeIsFinished){
             intcodeInput = robot.getColorOfPanelTheRobotIsOn()+"";
             intcode(data);
@@ -31,8 +33,8 @@ public class Main {
             intcode(data);
             robot.moveTheRobot(Integer.parseInt(intcodeOutput));
         }
-        //robot.printGrid();
         System.out.println(robot.countPaintedPanels());
+        robot.printGrid();
     }
 
     static void intcode (List<String> memoryToWorkOn){
@@ -42,7 +44,6 @@ public class Main {
         long firstNumber = 0;
         long secondNumber = 0;
         int resultPosition = 0;
-        int relativeBase = 0;
         String result = "";
         String input;
         String opcode = "";
@@ -121,7 +122,6 @@ public class Main {
                 } else {
                     resultPosition = Integer.parseInt(memoryToWorkOn.get(actualPosition+1));
                 }
-                //System.out.println("Give input");
                 input = intcodeInput;
                 result = input;
             }
@@ -134,7 +134,6 @@ public class Main {
                     result = memoryToWorkOn.get(actualPosition + 1);
                 }
                 intcodeOutput = result;
-                //System.out.println(result);
                 actualPosition += 2;
                 return;
             }

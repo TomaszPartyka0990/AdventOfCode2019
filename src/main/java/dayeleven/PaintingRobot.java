@@ -13,9 +13,10 @@ public class PaintingRobot {
     public PaintingRobot() {
         this.xPosition = 0;
         this.yPosition = 0;
-        currentDirection = RobotDirection.UP;
+        currentDirection = RobotDirection.RIGHT;
         grid = new ArrayList<>();
         grid.add(new Panel(0,0));
+        grid.get(0).setColor(1);
         tmpPanel = new Panel(0,0);
     }
 
@@ -93,8 +94,36 @@ public class PaintingRobot {
     }
 
     void printGrid(){
-        System.out.println(grid.size());
-        grid.forEach(System.out::println);
+        grid.sort((p1, p2) -> {
+            if (p1.getY()>p2.getY()){
+                return -1;
+            }
+            if (p1.getY()<p2.getY()){
+                return 1;
+            }
+            if (p1.getX()<p2.getX()){
+                return -1;
+            }
+            if (p1.getX()>p2.getX()){
+                return 1;
+            }
+            return 0;
+        });
+        StringBuilder gridToBePrinted = new StringBuilder();
+        int y = grid.get(0).getY();
+        for (Panel panel:grid){
+            if (panel.getY() != y){
+                y = panel.getY();
+                gridToBePrinted.append("\r\n");
+            }
+            if (panel.getColor()==0){
+                gridToBePrinted.append(" ");
+            }
+            if (panel.getColor()==1){
+                gridToBePrinted.append("#");
+            }
+        }
+        System.out.println(gridToBePrinted.toString());
     }
 
     int countPaintedPanels(){
@@ -109,5 +138,10 @@ public class PaintingRobot {
 
     int getColorOfPanelTheRobotIsOn(){
         return getThePanelRobotIsOnOrAddNew().getColor();
+    }
+
+
+    public List<Panel> getGrid() {
+        return grid;
     }
 }
