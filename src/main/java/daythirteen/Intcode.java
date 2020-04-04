@@ -9,6 +9,8 @@ public class Intcode {
     private int actualPosition;
     private int relativeBase;
     private List<String> memoryToWorkOn;
+    private boolean inputStarts;
+    private int inputCounter;
 
     public Intcode(List<String> memoryToWorkOn) {
         this.intcodeInput = "";
@@ -17,6 +19,19 @@ public class Intcode {
         this.actualPosition = 0;
         this.relativeBase = 0;
         this.memoryToWorkOn =  memoryToWorkOn;
+        this.inputCounter = 0;
+        this.inputStarts = false;
+        for (int i=0; i<10000; i++){
+            this.memoryToWorkOn.add("0");
+        }
+    }
+
+    public boolean isInputStarts() {
+        return inputStarts;
+    }
+
+    public void setIntcodeInput(String intcodeInput) {
+        this.intcodeInput = intcodeInput;
     }
 
     public int getIntcodeOutput() {
@@ -27,19 +42,11 @@ public class Intcode {
         return intcodeIsFinished;
     }
 
-    public void setIntcodeInput(String intcodeInput) {
-        this.intcodeInput = intcodeInput;
-    }
-
     public void runIntcode (){
-        for (int i=0; i<10000; i++){
-            memoryToWorkOn.add("0");
-        }
         long firstNumber = 0;
         long secondNumber = 0;
         int resultPosition = 0;
         String result = "";
-        String input;
         String opcode = "";
         String parameterOneMode="";
         String parameterTwoMode="";
@@ -116,8 +123,14 @@ public class Intcode {
                 } else {
                     resultPosition = Integer.parseInt(memoryToWorkOn.get(actualPosition+1));
                 }
-                input = intcodeInput;
-                result = input;
+                inputCounter++;
+                if (inputCounter<=3){
+                    if (inputCounter == 3){
+                        inputStarts = true;
+                    }
+                    return;
+                }
+                result = intcodeInput;
             }
             if ("4".equals(opcode)){
                 if ("0".equals(parameterOneMode)) {

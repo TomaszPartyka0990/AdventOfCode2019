@@ -19,6 +19,5 @@ public class Main {
         Intcode intcode = new Intcode(data);
         ArcadeCabinet arcadeCabinet = new ArcadeCabinet(intcode);
         arcadeCabinet.playGame();
-        System.out.println(arcadeCabinet.coutBlockTiles());
     }
 }
