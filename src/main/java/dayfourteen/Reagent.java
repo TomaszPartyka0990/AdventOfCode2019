@@ -4,16 +4,16 @@ public class Reagent {
     private int quantity;
     private String name;
 
-    public Reagent(int quantity, String name) {
+    Reagent(int quantity, String name) {
         this.quantity = quantity;
         this.name = name;
     }
 
-    public int getQuantity() {
+    int getQuantity() {
         return quantity;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 

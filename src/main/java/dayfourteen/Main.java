@@ -22,23 +22,21 @@ public class Main {
             for (String inputReagent:inputReagents){
                 String[] inputReagentDetail = inputReagent.split(" ");
                 reagents.add(new Reagent(Integer.parseInt(inputReagentDetail[0]), inputReagentDetail[1]));
-                chemicals.put(inputReagentDetail[1], 0l);
+                chemicals.put(inputReagentDetail[1], 0L);
             }
             String result = line.substring(line.indexOf("=>")+3);
             String[] resultDetail = result.split(" ");
             Reagent product = new Reagent(Integer.parseInt(resultDetail[0]), resultDetail[1]);
             if (!resultDetail[1].equals("FUEL")){
-                chemicals.put(resultDetail[1], 0l);
+                chemicals.put(resultDetail[1], 0L);
             }
             Reaction reaction = new Reaction(reagents, product);
             reactions.add(reaction);
         }
         ChemicalFactory chemicalFactory = new ChemicalFactory(reactions, chemicals);
-        chemicalFactory.getChemicalsNeededForOneFuel();
-        chemicalFactory.printOreNeededForOneFuel();
-        System.out.println("Chemicals list for 1  FUEL:");
-        chemicalFactory.printChemicalsMap();
-        System.out.println("Leftovers produced by making 1 FUEL:");
-        chemicalFactory.printLeftoversMap();
+        chemicalFactory.produceOneFuel();
+        System.out.println("ORE for 1 FUEL: " + chemicalFactory.getOreForOneFuel());
+        chemicalFactory.produceFuelForTrilionOre();
+        System.out.println("Fuel  produced: " + (chemicalFactory.getFuelProduced()-1));
     }
 }

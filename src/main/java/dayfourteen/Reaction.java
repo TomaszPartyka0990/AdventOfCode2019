@@ -6,28 +6,17 @@ public class Reaction {
     private List<Reagent> reagents;
     private Reagent product;
 
-    public Reaction(List<Reagent> reagents, Reagent product) {
+    Reaction(List<Reagent> reagents, Reagent product) {
         this.reagents = reagents;
         this.product = product;
     }
 
-    public Reagent getProduct() {
+    Reagent getProduct() {
         return product;
     }
 
-    public List<Reagent> getReagents() {
+    List<Reagent> getReagents() {
         return reagents;
-    }
-
-    public void printReaction(){
-        StringBuilder sb = new StringBuilder();
-        for (Reagent reagent:reagents){
-            sb.append(reagent);
-            sb.append(",");
-        }
-        sb.append(" => ");
-        sb.append(product);
-        System.out.println(sb.toString());
     }
 
     @Override
